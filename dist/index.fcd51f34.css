@@ -1,0 +1,106 @@
+.album-main-body {
+  padding: 20px 30px 0;
+}
+
+.header-section {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 55px;
+  display: flex;
+}
+
+.header-section__img {
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+}
+
+.play-icon {
+  color: #fff;
+  cursor: pointer;
+  font-size: 50px;
+}
+
+#exit-info-page {
+  color: #d3d3d3;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.album-name {
+  color: #fff;
+  font-size: 22px;
+}
+
+.album-composer {
+  color: gray;
+  font-size: 14px;
+}
+
+.name-section {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -15px;
+  display: flex;
+}
+
+.songs-list-section {
+  height: 307px;
+  flex-direction: column;
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.list__item {
+  height: 60px;
+  cursor: pointer;
+  background-color: #080808;
+  border-bottom: 1px solid #1b1b1b;
+  grid-template-columns: auto 1fr 20px;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 5px;
+  transition: all .1s ease-in-out;
+  display: grid;
+}
+
+.list__item:hover {
+  background-color: #0c0c0c;
+}
+
+.list__item__img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.list__item__name {
+  color: #fff;
+  max-height: 20px;
+  font-size: 13px;
+  overflow-x: hidden;
+}
+
+.liked-icon {
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.like-album {
+  color: #fff;
+  cursor: pointer;
+  font-size: 30px;
+  transition: all .15s ease-in-out;
+}
+
+.header-section__img-album {
+  width: 120px;
+  height: 120px;
+  border-radius: 5px;
+}
+
+/*# sourceMappingURL=index.fcd51f34.css.map */

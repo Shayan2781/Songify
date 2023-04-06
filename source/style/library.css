@@ -1,0 +1,112 @@
+.library-main-body{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0px 15px;
+    padding-top: 40px;
+}
+
+#library-result-section{
+    margin: 0;
+    height: 490px;
+}
+
+
+.type-section{
+    display: flex;
+    gap: 25px;
+}
+
+.type-label{
+    color: var(--main-gray);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.type-label:hover{
+    color: white;
+}
+
+
+.view-point{
+    background: none;
+    background-color: rgb(9, 9, 9);
+}
+
+.categories-section{
+    display: flex;
+    gap: 25px;
+}
+
+.category-label{
+    color: rgb(132, 132, 132);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 5px;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.category-label:hover{
+    color: white;
+    border-bottom: 2px solid green;
+}
+
+
+.search-section{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.search-container{
+    display: flex;
+    background-color: var(--main-gray);
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+.search-icon{
+    color: white;
+    transform: scale(0.6);
+}
+
+.songs-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: scroll;
+    max-height: 465px;
+}
+
+.list-item{
+    height: 70px;
+    background-color: violet;
+    min-height: 70px;
+}
+
+.selected-category{
+    color: white;
+    border-bottom: 2px solid green;
+}
+
+.library-result-section{
+    width: 100%;
+    height: 460px;
+    background-color: rgba(86, 86, 86, 0.05);
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
