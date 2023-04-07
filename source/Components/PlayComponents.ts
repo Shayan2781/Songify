@@ -311,8 +311,10 @@ function nextTrack (songs : Music[]){
         nextIndex = (currSong + 1) % songs.length;
     }
     currTrack!.pause();
+    currTrack = null;
     if ( isMinimized){
         createMiniPlayer(songs, nextIndex, isRandomized);
+
         return;
     }
     createPlayPage(songs, nextIndex, isRandomized);
