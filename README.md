@@ -1,6 +1,7 @@
 # Songify
 Songify is a Spotify clone coded in HTML, CSS, Typescript with pure DOM manipulation
 which gets its data from a .json file and saves liked and recently played songs in apps local storage (cache).
+Songify also handles downloading songs (indexedDB) and client side routing to share albums, songs and artists.
 
 
 
