@@ -1,7 +1,6 @@
 import { Album, Music } from '../data/SongFormatter';
 import { htmlToElement, setDefaultColor } from "./HomeComponents";
 import { createSearchResultAlbumItem, createSearchResultArtistItem, createSearchResultSongItem, setResultsEmpty } from "./SearchComponents";
-import userData from '../data/userData.json';
 import { likedAlbums, likedArtists, likedSongs } from '..';
 
 let category : string = 'songs';
@@ -179,6 +178,7 @@ function createResultSection(){
 }
 
 export function createLibraryPage (){
+    history.pushState('', 'Library', '/library');
     const body = document.getElementById('main-body')!;
     body.innerHTML = '';
     body.classList.add('library-main-body');

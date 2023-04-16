@@ -147,6 +147,7 @@ function createResultSection(){
 }
 
 export function createSearchPage (searched :string = ""){
+    history.pushState('', 'Search', '/search');
     const body = document.getElementById('main-body')!;
     body.innerHTML = '';
     body.classList.remove('album-main-body');

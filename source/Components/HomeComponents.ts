@@ -1,7 +1,7 @@
-import { addToRecentlyPlayed, addToRout, recentlyPlayed, routingTracked } from '..';
+import { addToRecentlyPlayed, addToRout, artistExists, getSong, recentlyPlayed, routingTracked } from '..';
 import { Album, Music, Root, Root2 } from '../data/SongFormatter';
 import songs from '../data/songs.json';
-import { createAlbumPage } from './AlbumPageComponents';
+import { createAlbumPage, createArtistPage } from './AlbumPageComponents';
 import { createLibraryPage } from './LibraryComponents';
 import { createPlayPage, stopSong } from './PlayComponents';
 import { createSearchPage } from './SearchComponents';
@@ -198,6 +198,7 @@ function createMainBody(){
 
 
 export function createHomePage (){
+    history.replaceState('', 'Home', '/home');
     const body = document.getElementById('main-body')!;
     body.innerHTML = '';
     body.classList.remove('library-main-body');
@@ -208,12 +209,50 @@ export function createHomePage (){
     setDefaultColor();
 }
 
+function locationHandler() : boolean{
+    const url = window.location;
+    const hash = url.hash.replace("#", "");
+    switch(url.pathname){
+        case '/search' :
+            createSearchPage();
+            return true;
+        case '/library' :
+            createLibraryPage();
+            return true;
+
+        case '/album' :
+            if ( !getAlbumData(hash)){
+                return false;
+            }
+            createAlbumPage(getAlbumData(hash)!);
+            return true;
+        case '/artist' :
+            if ( !artistExists(hash)){
+                return false;
+            } 
+            createArtistPage(hash);
+            return true;
+        case '/play' :
+            let obj = getSong(hash);
+            if ( !obj){
+                return false;
+            }
+            createPlayPage(obj.list, obj.index, false);
+            return true;
+    }
+    return false;
+}
+
 export function setup (){
     createMainBody();
     createMiniPlayerContainer();
     createNavbar();
-    createHomePage();
     setNavbarLocating();
+    if ( locationHandler()){
+        addToRout(createHomePage);
+        return;
+    }
+    createHomePage();
 }
 
 function createMiniPlayerContainer() {

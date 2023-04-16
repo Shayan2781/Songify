@@ -1,5 +1,6 @@
 import { addToLikedSongs, addToRecentlyPlayed, addToRout, getRout, likedSongs, removeFromLikedSongs } from "..";
 import { Music } from "../data/SongFormatter";
+import { getSongDB, saveSongDB } from "./Database";
 import { htmlToElement, setRequestedColor } from "./HomeComponents";
 
 
@@ -13,7 +14,6 @@ function createHeadingSection (givenSongs : Music[]){
     let iconElement = htmlToElement('<i class="fa fa-angle-down go-back"></i>');
     iconElement.addEventListener('click', function(){
         let func : Function = getRout();
-        addToRout(func)
         func();
         isMinimized = true;
         createMiniPlayer(givenSongs, currSong, isRandomized);
@@ -242,12 +242,21 @@ let currTrack! : HTMLAudioElement | null;
 let timer: number | undefined;
 
 
-function loadTrack(givenSongs : Music[] , index : number){
+async function loadTrack(givenSongs : Music[] , index : number){
     clearInterval(timer);
     reset()
     currTrack! = document.createElement('audio');
     currTrack!.src = givenSongs[index].track_url;
-    currTrack!.load();
+    let songFromDB : string = <string>await getSongDB(givenSongs[index].id + "");
+    console.log(songFromDB);
+    if ( songFromDB){
+        currTrack!.src = songFromDB;
+        console.log("got from db");
+    }
+    else{
+        currTrack!.load();
+        saveSongDB(givenSongs[index]);
+    }
 
     timer = setInterval(setUpdate, 1000);
 
@@ -326,9 +335,10 @@ export function stopSong (){
     }
     if ( !currTrack!.paused){
         currTrack!.pause();
-        currTrack = null;
-        clearInterval(timer);
     }
+    currTrack = null;
+    
+    clearInterval(timer);
 }
 
 function isLiked (song : Music) : boolean{
@@ -342,7 +352,8 @@ function isLiked (song : Music) : boolean{
 
 
 
-export function createPlayPage(givenSongs : Music[], current : number, Randomized : boolean){
+export function createPlayPage(givenSongs : Music[] = [], current : number = 0, Randomized : boolean = false){
+    history.replaceState('', 'Play', 'play#' + givenSongs[current].id);
     addToRecentlyPlayed(givenSongs[current]);
     isRandomized = Randomized;
     currSong = current;
@@ -402,18 +413,14 @@ export function createMiniPlayer (songs : Music[], current : number, Randomized 
     let controllerContainerElement = htmlToElement('<div class="controllers-container"></div>');
     let backIcon = htmlToElement('<i class="fa fa-backward mini-player__controller"></i>');
     let pauseIcon = htmlToElement('<i class="fa mini-player__controller"></i>');
-    if ( currTrack!.paused){
-        pauseIcon.classList.add('fa-play');
-    }
-    else{
-        pauseIcon.classList.add('fa-pause');
-    }
+    pauseIcon.classList.add('fa-pause');
     let forwardIcon = htmlToElement('<i class="fa fa-forward mini-player__controller"></i>');
     let exitIcon = htmlToElement('<i class="fa fa-multiply mini-player__controller-exit"></i>');
 
     backIcon.addEventListener('click', function(){
         let nextIndex;
         currTrack!.pause()
+        currTrack = null;
         if ( isRandomized){
             nextIndex = getRandomized(songs.length, currIndex);
         }
@@ -442,7 +449,8 @@ export function createMiniPlayer (songs : Music[], current : number, Randomized 
 
     forwardIcon.addEventListener('click', function(){
         let nextIndex;
-        currTrack!.pause()
+        currTrack?.pause();
+        currTrack = null;
         if ( isRandomized){
             nextIndex = getRandomized(songs.length, currIndex);
         }

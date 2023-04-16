@@ -160,6 +160,7 @@ export function createAlbumPage (data? : Root2) {
     if ( data != null){
         selectedAlbum = data;
     }
+    window.history.replaceState('', 'Album', 'album#' + selectedAlbum.album.id);
     const body = document.getElementById('main-body')!;
     body.innerHTML = '';
     body.classList.remove('library-main-body');
@@ -175,6 +176,7 @@ export function createArtistPage (data? : string) {
     if ( data != null){
         selectedArtist = data;
     }
+    window.history.replaceState('', 'Artist', 'artist#' + selectedArtist)
     const body = document.getElementById('main-body')!;
     body.innerHTML = '';
     body.classList.remove('library-main-body');
